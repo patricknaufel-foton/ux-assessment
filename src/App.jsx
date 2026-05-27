@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { Analytics } from "@vercel/analytics/next"
 import * as XLSX from "xlsx";
 import { Upload, Users, TrendingUp, AlertTriangle, Award, BookOpen, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
