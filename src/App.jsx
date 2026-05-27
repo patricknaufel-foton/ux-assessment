@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 import * as XLSX from "xlsx";
 import { Upload, Users, TrendingUp, AlertTriangle, Award, BookOpen, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -615,6 +615,7 @@ export default function App() {
         )}
       </div>
     </main>
+    
   );
 }
 
