@@ -615,9 +615,12 @@ export default function App() {
         )}
       </div>
     </main>
-    
+        
   );
 }
+
+  <Analytics />
+  </>
 
 function MetricCard({ icon, label, value }) {
   return (
