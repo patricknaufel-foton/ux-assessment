@@ -32,6 +32,8 @@ function CardContent({ children, className = "" }) {
 
 const MAX_PROFESSIONALS = 5;
 
+const [loadingPdf, setLoadingPdf] = useState(false);
+
 const COLUMN_MAP = {
   name: "Nome",
   role: "Cargo/Posição Atual",
@@ -372,6 +374,22 @@ export default function App() {
     }
   }
 
+  async function handleExportPDF() {
+  try {
+    setLoadingPdf(true);
+
+    await exportElementToPDF(
+      "assessment-full-report",
+      "foton-ux-assessment-completo.pdf"
+    );
+  } catch (err) {
+    console.error(err);
+    alert("Não foi possível gerar o PDF.");
+  } finally {
+    setLoadingPdf(false);
+  }
+}
+
   return (
     <>
       <main className="min-h-screen bg-[#080808] text-[#F2F2F2] p-4 md:p-8">
@@ -582,20 +600,16 @@ export default function App() {
                   {loadingAssessment ? "Gerando análise..." : "Gerar análise estratégica"}
                 </button>
 
-                {assessment && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      exportElementToPDF(
-                        "assessment-full-report",
-                        "foton-ux-assessment-completo.pdf"
-                      )
-                    }
-                    className="bg-[#F2F2F2] text-[#080808] hover:bg-[#D7D7D7] transition px-8 py-4 rounded-2xl font-semibold shadow-2xl text-lg"
-                  >
-                    Exportar PDF completo
-                  </button>
-                )}
+               {assessment && (
+                <button
+                  type="button"
+                  onClick={handleExportPDF}
+                  disabled={loadingPdf}
+                  className="bg-[#F2F2F2] text-[#080808] hover:bg-[#D7D7D7] disabled:opacity-60 disabled:cursor-not-allowed transition px-8 py-4 rounded-2xl font-semibold shadow-2xl text-lg"
+                >
+                  {loadingPdf ? "Gerando PDF..." : "Exportar PDF completo"}
+                </button>
+              )}
               </div>
             </>
           )}
