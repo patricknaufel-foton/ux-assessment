@@ -5,6 +5,7 @@ import { Upload, Users, TrendingUp, AlertTriangle, Award, BookOpen, BarChart3 } 
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import { generateTeamAssessment } from "./services/geminiService";
+import { exportElementToPDF } from "./services/pdfService";
 import teamAssessmentPrompt from "./prompts/teamAssessmentPrompt";
 import {
   RadarChart,
@@ -386,7 +387,8 @@ export default function App() {
   }
 
   return (
-    <main className="min-h-screen bg-[#080808] text-[#F2F2F2] p-4 md:p-8">
+    <>
+      <main className="min-h-screen bg-[#080808] text-[#F2F2F2] p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
         <motion.header
           initial={{ opacity: 0, y: 12 }}
@@ -568,7 +570,7 @@ export default function App() {
             </div>
 
             {assessment && (
-              <section>
+              <section id="executive-report">
                 <Card className="bg-[#111111] border-[#2A2A2A] rounded-2xl shadow-xl">
                   <CardContent className="p-6 md:p-8">
                     <div className="flex items-center justify-between gap-4 mb-6">
@@ -577,6 +579,19 @@ export default function App() {
                         <h2 className="text-2xl md:text-3xl font-bold mt-2">Análise estratégica do time</h2>
                       </div>
                     </div>
+
+                   <button
+                      type="button"
+                      onClick={() =>
+                        exportElementToPDF(
+                          "executive-report",
+                          "foton-ux-assessment-report.pdf"
+                        )
+                      }
+                      className="bg-[#F2F2F2] text-[#080808] hover:bg-[#D7D7D7] transition px-4 py-2 rounded-xl font-semibold"
+                    >
+                      Exportar PDF
+                  </button>
 
                     <div className="space-y-4 text-[#E6E6E6] leading-relaxed">
                       <ReactMarkdown
@@ -615,12 +630,11 @@ export default function App() {
         )}
       </div>
     </main>
-        
+
+    <Analytics />
+    </>
   );
 }
-
-  <Analytics />
-  </>
 
 function MetricCard({ icon, label, value }) {
   return (
