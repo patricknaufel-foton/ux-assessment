@@ -32,8 +32,6 @@ function CardContent({ children, className = "" }) {
 
 const MAX_PROFESSIONALS = 5;
 
-const [loadingPdf, setLoadingPdf] = useState(false);
-
 const COLUMN_MAP = {
   name: "Nome",
   role: "Cargo/Posição Atual",
@@ -231,6 +229,7 @@ export default function App() {
   const [error, setError] = useState("");
   const [assessment, setAssessment] = useState("");
   const [loadingAssessment, setLoadingAssessment] = useState(false);
+  const [loadingPdf, setLoadingPdf] = useState(false);
 
   async function handleFileUpload(event) {
     const file = event.target.files?.[0];
